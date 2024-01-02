@@ -12,10 +12,12 @@ public class Main {
         newData.userInput();
         // used for asking the amount of data they want on the file
         newData.userInput();
+        // used for asking what type of data they want on the file
+        newData.userInput();
 
     }
     /*
-     ? this is just used to clear out the terminal
+     * ? this is just used to clear out the terminal
      * System.out.print("\033[H\033[2J");
      * System.out.flush();
      */
