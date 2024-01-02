@@ -1,10 +1,11 @@
+import java.io.Console;
+import java.io.File;
 import java.util.Scanner;
 
 public class dataCreation implements Interface {
-    private String dataFileName;
-    private int dataSize = 0;
     private int flag = 0;
     private Scanner console;
+    private String temp;
 
     @Override
     public long basicNumbers() {
@@ -33,51 +34,44 @@ public class dataCreation implements Interface {
     @Override
     public void userInput() {
         switch (flag) {
-            // for the name of the file
+            // creating a new file and naming
             case 0:
-                System.out.print("Please enter the name of the data that is going to be created: ");
-                console = new Scanner(System.in);
-                dataFileName = console.nextLine();
-                break;
-            // for the data size of the file
-            case 1:
                 do {
-                    try {
-                        System.out.print("Please enter the amount of data you require: ");
-                        console = new Scanner(System.in);
-                        dataSize = console.nextInt();
-                        if(dataSize <= 0){
-                            throw new Exception();
+                    System.out.print("Please enter the name of you're data file: ");
+                    console = new Scanner(System.in);
+                    File newFile = new File(console.nextLine() + ".txt");
+
+                    // checks to see if file exist, asks user if it will overwrite or not
+                    if (newFile.exists()) {
+                        do {
+                            System.out.print("The file already exists, would you like to overwrite? (y/n): ");
+                            console = new Scanner(System.in);
+                            temp = console.nextLine();
+                        } while ((!(temp.equals("y"))) && (!(temp.equals("n"))));
+                        if (temp.equals("n")) {
+                            System.out.print("\033[H\033[2J");
+                            System.out.flush();
+                            continue;
                         }
-                    } catch (Exception e) {
-                        System.out.println("Invalid input please try again");
-                        dataSize = 0;
                     }
-                } while (dataSize <= 1);
+                    // creating the file and catching error if the name doesn't work
+                    try {
+                        newFile.createNewFile();
+                        flagTriggered();
+                        System.out.println("File created! ");
+                    } catch (Exception e) {
+                        System.out.println("Error creating, file plase try again");
+                    }
+
+                } while (flag == 0);
                 break;
             default:
-                console.close();
+                break;
         }
-
     }
 
-    // retrive the file name
-    public String getDataFileName() {
-        return dataFileName;
-    }
-
-    // retrives the flag value
-    public int getFlag() {
-        return flag;
-    }
-
-    // retrives the data size
-    public int getDataSize() {
-        return dataSize;
-    }
-
-    // update the flag if passed
-    public void flagTriggered() {
+    // incrementing flag
+    private void flagTriggered() {
         flag = +1;
     }
 
