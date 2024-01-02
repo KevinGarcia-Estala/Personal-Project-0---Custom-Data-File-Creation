@@ -7,4 +7,6 @@ public interface Interface {
     void format();
     // will write on to the data file
     void write();
+    // will take in the user input for certain questions
+    void userInput();
 }
