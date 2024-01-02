@@ -35,6 +35,10 @@ public class Main {
             }
 
         } while (newData.getFlag() == 0);
-        
+        // used for getting the amount of data the user wants
+        do{
+            newData.userInput();
+            System.out.println(newData.getDataSize());
+    }while(newData.getFlag() == 1);
     }
 }
