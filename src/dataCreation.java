@@ -6,6 +6,8 @@ public class dataCreation implements Interface {
     private int flag = 0;
     private Scanner console;
     private String temp;
+    private int dataSize = 0;
+    private Exception error;
 
     @Override
     public long basicNumbers() {
@@ -49,8 +51,6 @@ public class dataCreation implements Interface {
                             temp = console.nextLine();
                         } while ((!(temp.equals("y"))) && (!(temp.equals("n"))));
                         if (temp.equals("n")) {
-                            System.out.print("\033[H\033[2J");
-                            System.out.flush();
                             continue;
                         }
                     }
@@ -65,6 +65,27 @@ public class dataCreation implements Interface {
 
                 } while (flag == 0);
                 break;
+
+            // deciding how much data will be written onto the file
+            case 1:
+                do {
+                    System.out.print("how many data values do you need?: ");
+                    console = new Scanner(System.in);
+                    try {
+                        dataSize = console.nextInt();
+                        if(dataSize <= 0){
+                            throw error;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Invalid input, please try again");
+                        continue;
+                    }
+                    flagTriggered();
+
+                } while (flag == 1);
+                System.out.println("Size has been determined");
+                break;
+
             default:
                 break;
         }
@@ -72,7 +93,7 @@ public class dataCreation implements Interface {
 
     // incrementing flag
     private void flagTriggered() {
-        flag = +1;
+        flag++;
     }
 
 }

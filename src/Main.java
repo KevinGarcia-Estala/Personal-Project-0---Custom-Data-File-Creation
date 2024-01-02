@@ -8,8 +8,15 @@ public class Main {
     public static void main(String[] args) {
         dataCreation newData = new dataCreation();
         System.out.println("hello User!");
-        //used for asking name of the data file
+        // used for asking name of the data file
         newData.userInput();
-    }
-}
+        // used for asking the amount of data they want on the file
+        newData.userInput();
 
+    }
+    /*
+     ? this is just used to clear out the terminal
+     * System.out.print("\033[H\033[2J");
+     * System.out.flush();
+     */
+}
