@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class dataCreation implements Interface {
     private String dataFileName;
+    private int dataSize;
     private int flag = 0;
     private Scanner console;
 
@@ -37,6 +38,12 @@ public class dataCreation implements Interface {
                 console = new Scanner(System.in);
                 dataFileName = console.nextLine();
                 break;
+            case 1:
+                System.out.print("please enter the amount of data values that you need: ");
+                console = new Scanner(System.in);
+                dataSize = console.nextInt();
+                break;
+
 
         }
 
