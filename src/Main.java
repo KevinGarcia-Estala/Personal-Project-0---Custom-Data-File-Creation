@@ -14,6 +14,8 @@ public class Main {
         newData.userInput();
         // used for asking what type of data they want on the file
         newData.userInput();
+        // used for determining what format they want to use
+        newData.userInput();
 
     }
     /*

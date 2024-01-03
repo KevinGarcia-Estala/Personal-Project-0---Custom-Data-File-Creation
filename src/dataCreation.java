@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class dataCreation implements Interface {
     private int userFlag = 0;
     private int numberFlag = -999;
+    private int formatFlag = -999;
     private Scanner console;
     private Object temp;
     private int dataSize = 0;
@@ -60,6 +61,7 @@ public class dataCreation implements Interface {
                         newFile.createNewFile();
                         flagTriggered();
                         System.out.println("File created! ");
+                        System.out.println();
                     } catch (Exception e) {
                         System.out.println("Error creating, file plase try again");
                     }
@@ -90,7 +92,7 @@ public class dataCreation implements Interface {
 
             // determine what type of numbers will be used for the data file
             case 2:
-                System.out.print("(1) numbers \n(2) decimals \n(3)negatives \n(4) mix \n");
+                System.out.print("(1) numbers \n(2) decimals \n(3) negatives \n(4) mix \n");
                 do {
                     System.out.print("please select what type of data you want on you're file: ");
                     console = new Scanner(System.in);
@@ -100,13 +102,35 @@ public class dataCreation implements Interface {
                             throw error;
                         } else {
                             flagTriggered();
+                            System.out.println();
                         }
                     } catch (Exception e) {
                         System.out.println("Invalid input, please try again");
                     }
                 } while (userFlag == 2);
-                // break;
+                break;
+
+            // determine what format will be used for the data file
+            case 3:
+                do {
+                    System.out.print("(1) space \n(2) enter \n(3) tab \n");
+                    System.out.print("please select what type of format do you want on you're file: ");
+                    console = new Scanner(System.in);
+                    try {
+                        formatFlag = console.nextInt();
+                        if (formatFlag <= 0 || formatFlag >= 4) {
+                            throw error;
+                        } else {
+                            flagTriggered();
+                            System.out.println();
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Invalid input, please try again");
+                    }
+                } while (userFlag == 3);
+                break;
             default:
+                userFlag = 0;
                 break;
         }
     }
