@@ -129,6 +129,10 @@ public class dataCreation implements Interface {
                     }
                 } while (userFlag == 3);
                 break;
+            
+                //asks the user if they want a specific range of numbers or not
+            case 4:
+            //TODO: create a option for users to decide if they want a certain range of numbers or not
             default:
                 userFlag = 0;
                 break;
