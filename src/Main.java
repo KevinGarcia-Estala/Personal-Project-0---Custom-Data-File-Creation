@@ -18,7 +18,7 @@ public class Main {
             newData.userInput();
             // used for determining if the user wants a range of numbers or not
             newData.userInput();
-            restartProgram(newData);
+            run = newData.restartProgram(run);
         } while (run);
     }
 
@@ -27,21 +27,21 @@ public class Main {
      * System.out.print("\033[H\033[2J");
      * System.out.flush();
      */
-    static void restartProgram(dataCreation newData) {
-        Scanner mainConsole = new Scanner(System.in);
-        do {
-            System.out.print("Would you like to create a new file? (y/n): ");
-            temp = mainConsole.next();
-        } while ((!(temp.equals("y"))) && (!(temp.equals("n"))));
-        mainConsole.close();
-        // clear out the terminal
-        if (temp.equals("y")) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            newData.userInput();
-        } else {
-            System.out.println("Thank you for using this program, good bye!");
-            run = false;
-        }
-    }
+    // static void restartProgram(dataCreation newData) {
+    //     Scanner mainConsole = new Scanner(System.in);
+    //     do {
+    //         System.out.print("Would you like to create a new file? (y/n): ");
+    //         temp = mainConsole.next();
+    //     } while ((!(temp.equals("y"))) && (!(temp.equals("n"))));
+    //     mainConsole.close();
+    //     // clear out the terminal
+    //     if (temp.equals("y")) {
+    //         System.out.print("\033[H\033[2J");
+    //         System.out.flush();
+    //         newData.userInput();
+    //     } else {
+    //         System.out.println("Thank you for using this program, good bye!");
+    //         run = false;
+    //     }
+    // }
 }

@@ -155,7 +155,6 @@ public class dataCreation implements Interface {
             // restarts the program
             default:
                 userFlag = 0;
-                console.close();
                 break;
         }
     }
@@ -211,6 +210,25 @@ public class dataCreation implements Interface {
             }
 
         } while (mainRFlag);
+    }
+
+    //will be used to restart the program
+     public boolean restartProgram(boolean run) {
+         console = new Scanner(System.in);
+        do {
+            System.out.print("Would you like to create a new file? (y/n): ");
+            temp = console.next();
+        } while ((!(temp.equals("y"))) && (!(temp.equals("n"))));
+        // clear out the terminal
+        if (temp.equals("y")) {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            userInput();
+            return true;
+        } else {
+            System.out.println("Thank you for using this program, good bye!");
+            return false;
+        }
     }
 
 }
