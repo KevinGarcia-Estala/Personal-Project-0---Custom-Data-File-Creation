@@ -1,4 +1,3 @@
-import java.io.Console;
 import java.io.File;
 import java.util.Scanner;
 
@@ -8,6 +7,8 @@ public class dataCreation implements Interface {
     private int formatFlag = -999;
     private Scanner console;
     private Object temp;
+    private long minimum;
+    private long maximum;
     private int dataSize = 0;
     private Exception error;
 
@@ -112,8 +113,9 @@ public class dataCreation implements Interface {
 
             // determine what format will be used for the data file
             case 3:
+                System.out.print("(1) space \n(2) enter \n(3) tab \n");
                 do {
-                    System.out.print("(1) space \n(2) enter \n(3) tab \n");
+
                     System.out.print("please select what type of format do you want on you're file: ");
                     console = new Scanner(System.in);
                     try {
@@ -129,12 +131,31 @@ public class dataCreation implements Interface {
                     }
                 } while (userFlag == 3);
                 break;
-            
-                //asks the user if they want a specific range of numbers or not
+
+            // asks the user if they want a specific range of numbers or not
             case 4:
-            //TODO: create a option for users to decide if they want a certain range of numbers or not
+                // TODO: create a option for users to decide if they want a certain range of
+                do {
+                    do {
+                        System.out.print("Would you like the data to be a certain range of numbers? (y/n): ");
+                        console = new Scanner(System.in);
+                        temp = console.nextLine();
+                    } while ((!(temp.equals("y"))) && (!(temp.equals("n"))));
+                    if (temp.equals("y")) {
+                        rangeAdded();
+                        flagTriggered();
+                    } else {
+                        minimum = 0;
+                        maximum = 999999999;
+                        flagTriggered();
+                    }
+                } while (userFlag == 4);
+                System.out.println("Please wait while data is being created");
+                break;
+            // restarts the program
             default:
                 userFlag = 0;
+                console.close();
                 break;
         }
     }
@@ -142,6 +163,54 @@ public class dataCreation implements Interface {
     // incrementing flag
     private void flagTriggered() {
         userFlag++;
+    }
+
+    // used for determining the range of numbers for the random numbers
+    private void rangeAdded() {
+        boolean minFlag = true;
+        boolean maxFlag = true;
+        boolean mainRFlag = true;
+        do {
+            // check to see if the input for the minimum value is a valid input
+            do {
+                System.out.print("What will be the minimum value for the range? : ");
+                console = new Scanner(System.in);
+                try {
+                    minimum = console.nextInt();
+                    if (minimum < 0) {
+                        throw error;
+                    }
+                    minFlag = false;
+                } catch (Exception e) {
+                    System.out.println("Invalid minimum value, please try again");
+                }
+            } while (minFlag);
+
+            // check to see if the input for the maximum value is a valid input
+            do {
+                System.out.print("What will be the maximum value for the range? : ");
+                console = new Scanner(System.in);
+                try {
+                    maximum = console.nextInt();
+                    if (maximum < 0) {
+                        throw error;
+                    }
+                    maxFlag = false;
+                } catch (Exception e) {
+                    System.out.println("Invalid minimum value, please try again");
+                }
+            } while (maxFlag);
+
+            // check if the correct ranges was decided
+            if (maximum < minimum) {
+                System.out.println("Invalid range values value, please try again");
+                minFlag = true;
+                maxFlag = true;
+            } else {
+                mainRFlag = false;
+            }
+
+        } while (mainRFlag);
     }
 
 }
