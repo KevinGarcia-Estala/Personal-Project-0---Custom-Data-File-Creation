@@ -12,8 +12,28 @@ public class dataCreation implements Interface {
     private int dataSize = 0;
     private Exception error;
 
+    private void processing() {
+        while (dataSize > 0) {
+            // choose a number/data
+            switch (numberFlag) {
+                case 1:
+                    basicNumbers();
+                    break;
+                case 2:
+                    decimalNumbers();
+                    break;
+                case 3:
+                    basicNumbers();
+                    break;
+            }
+            dataSize--;
+        }
+
+    }
+
     @Override
     public long basicNumbers() {
+        
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'basicNumbers'");
     }
@@ -144,8 +164,13 @@ public class dataCreation implements Interface {
                         rangeAdded();
                         flagTriggered();
                     } else {
-                        minimum = -999999999;
-                        maximum = 999999999;
+                        if (numberFlag >= 2) {
+                            minimum = -999999999;
+                            maximum = 999999999;
+                        } else {
+                            minimum = 0;
+                            maximum = 999999999;
+                        }
                         flagTriggered();
                     }
                 } while (userFlag == 4);
