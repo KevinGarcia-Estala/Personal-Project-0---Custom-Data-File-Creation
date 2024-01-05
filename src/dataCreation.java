@@ -134,7 +134,6 @@ public class dataCreation implements Interface {
 
             // asks the user if they want a specific range of numbers or not
             case 4:
-                // TODO: create a option for users to decide if they want a certain range of
                 do {
                     do {
                         System.out.print("Would you like the data to be a certain range of numbers? (y/n): ");
@@ -145,7 +144,7 @@ public class dataCreation implements Interface {
                         rangeAdded();
                         flagTriggered();
                     } else {
-                        minimum = 0;
+                        minimum = -999999999;
                         maximum = 999999999;
                         flagTriggered();
                     }
@@ -176,7 +175,8 @@ public class dataCreation implements Interface {
                 console = new Scanner(System.in);
                 try {
                     minimum = console.nextInt();
-                    if (minimum < 0) {
+                    // checking to see if the user minimum range is valid for the data type
+                    if ((minimum < 0 && (!(numberFlag >= 3))) || (minimum >= 0 && (numberFlag >= 3))) {
                         throw error;
                     }
                     minFlag = false;
@@ -191,12 +191,9 @@ public class dataCreation implements Interface {
                 console = new Scanner(System.in);
                 try {
                     maximum = console.nextInt();
-                    if (maximum < 0) {
-                        throw error;
-                    }
                     maxFlag = false;
                 } catch (Exception e) {
-                    System.out.println("Invalid minimum value, please try again");
+                    System.out.println("Invalid maximum value, please try again");
                 }
             } while (maxFlag);
 
@@ -212,9 +209,9 @@ public class dataCreation implements Interface {
         } while (mainRFlag);
     }
 
-    //will be used to restart the program
-     public boolean restartProgram(boolean run) {
-         console = new Scanner(System.in);
+    // will be used to restart the program
+    public boolean restartProgram(boolean run) {
+        console = new Scanner(System.in);
         do {
             System.out.print("Would you like to create a new file? (y/n): ");
             temp = console.next();
