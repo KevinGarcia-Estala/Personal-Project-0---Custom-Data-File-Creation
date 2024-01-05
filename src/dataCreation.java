@@ -17,6 +17,7 @@ public class dataCreation implements Interface {
     private Random randy = new Random();
     private String fileName;
 
+    //used to take in the user's answers and decide on what data to put onto the file
     private void processing() {
         int numberFlagT = numberFlag;
         try {
@@ -50,6 +51,7 @@ public class dataCreation implements Interface {
 
     }
 
+    //Used for positive and negatives
     @Override
     public Object basicNumbers() {
         long temp2 = randy.nextInt((int) ((maximum - minimum) + 1));
@@ -57,6 +59,7 @@ public class dataCreation implements Interface {
         return temp;
     }
 
+    //Used for decimal numbers
     @Override
     public Object decimalNumbers() {
         long temp2 = randy.nextInt((int) ((maximum - minimum) + 1));
@@ -66,6 +69,7 @@ public class dataCreation implements Interface {
         return (temp);
     }
 
+    //used for determining the format for the data
     @Override
     public void format(FileWriter writer) throws IOException {
         switch (formatFlag) {
@@ -84,6 +88,11 @@ public class dataCreation implements Interface {
 
     }
 
+    /*
+     * @param temp is used as a case for both decimal and +/- numbers to be passed through
+     * @param writer is the file writer that will write onto the file
+     * used to write onto the newly created file
+     */
     @Override
     public void write(Object temp, FileWriter writer) {
         try {
