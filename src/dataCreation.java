@@ -1,4 +1,7 @@
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class dataCreation implements Interface {
@@ -11,49 +14,89 @@ public class dataCreation implements Interface {
     private long maximum;
     private int dataSize = 0;
     private Exception error;
+    private Random randy = new Random();
+    private String fileName;
 
     private void processing() {
-        while (dataSize > 0) {
-            // choose a number/data
-            switch (numberFlag) {
-                case 1:
-                    basicNumbers();
-                    break;
-                case 2:
-                    decimalNumbers();
-                    break;
-                case 3:
-                    basicNumbers();
-                    break;
+        int numberFlagT = numberFlag;
+        try {
+            FileWriter writer = new FileWriter(fileName);
+
+            while (dataSize > 0) {
+                // choose a number/data
+                if(numberFlagT == 4){
+                    numberFlag = randy.nextInt((int) (3-1) +1) + 1;
+                }
+                switch (numberFlag) {
+                    case 1:
+                        basicNumbers();
+                        break;
+                    case 2:
+                        decimalNumbers();
+                        break;
+                    case 3:
+                        basicNumbers();
+                        break;
+                }
+                write(temp, writer);
+                dataSize--;
+                if (dataSize != 0) {
+                    format(writer);
+                }
             }
-            dataSize--;
+            writer.close();
+        } catch (IOException e) {
         }
 
     }
 
     @Override
-    public long basicNumbers() {
-        
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'basicNumbers'");
+    public Object basicNumbers() {
+        long temp2 = randy.nextInt((int) ((maximum - minimum) + 1));
+        temp = minimum + temp2;
+        return temp;
     }
 
     @Override
-    public double decimalNumbers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'decimalNumbers'");
+    public Object decimalNumbers() {
+        long temp2 = randy.nextInt((int) ((maximum - minimum) + 1));
+        temp = minimum + temp2;
+        double temp3 = randy.nextDouble();
+        temp = (long) temp + temp3;
+        return (temp);
     }
 
     @Override
-    public void format() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'format'");
+    public void format(FileWriter writer) throws IOException {
+        switch (formatFlag) {
+            case 1:
+                temp = " ";
+                break;
+            case 2:
+                temp = "\n";
+                break;
+            case 3:
+                temp = "\t";
+            default:
+                break;
+        }
+        writer.write((String) temp);
+
     }
 
     @Override
-    public void write() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'write'");
+    public void write(Object temp, FileWriter writer) {
+        try {
+            if (numberFlag == 1 || numberFlag == 3) {
+                writer.write(Long.toString((long) temp));
+            } else {
+                writer.write(Double.toString((double) temp));
+            }
+            writer.flush();
+        } catch (IOException e) {
+            System.out.println("Something went wrong please try again");
+            System.exit(0);
+        }
     }
 
     @Override
@@ -64,7 +107,8 @@ public class dataCreation implements Interface {
                 do {
                     System.out.print("Please enter the name of you're data file: ");
                     console = new Scanner(System.in);
-                    File newFile = new File(console.nextLine() + ".txt");
+                    fileName = console.nextLine() + ".txt";
+                    File newFile = new File(fileName);
 
                     // checks to see if file exist, asks user if it will overwrite or not
                     if (newFile.exists()) {
@@ -175,6 +219,7 @@ public class dataCreation implements Interface {
                     }
                 } while (userFlag == 4);
                 System.out.println("Please wait while data is being created");
+                processing();
                 break;
             // restarts the program
             default:
